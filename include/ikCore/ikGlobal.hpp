@@ -29,6 +29,7 @@
 
 #include <ikCore/ikVersion.hpp>
 #include <ikCore/ikCompiler.hpp>
+#include <ikCore/ikSystem.hpp>
 
 #include <cstdlib>
 #include <cstdio>
