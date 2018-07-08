@@ -20,7 +20,6 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CL_OUTPUT_DIRECTORY})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CL_OUTPUT_DIRECTORY})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CL_OUTPUT_DIRECTORY})
 
-
 # Top project
 # Define some variables
 set(PROJECT_IKCORE_PATH "${CMAKE_CURRENT_LIST_DIR}")
@@ -29,7 +28,6 @@ set(WORKSPACE_PATH "${CMAKE_CURRENT_LIST_DIR}/..")
 include_directories(
     .
     ./include
-
 )
 
 # Compiler options
@@ -50,20 +48,9 @@ set ( CXX_SRCS
     ${CMAKE_CURRENT_LIST_DIR}/source/ikCore/ikGlobal.cpp
 )
 
-
-# set_source_files_properties(
-#     ${CXX_SRCS} PROPERTIES COMPILE_FLAGS 
-#     " -g -O0 -Wall")
-
-if(WIN32)
-    enable_language(RC)
-    set(CMAKE_RC_COMPILE_OBJECT
-        "<CMAKE_RC_COMPILER> ${RC_OPTIONS} -O coff -i <SOURCE> -o <OBJECT>")
-endif(WIN32)
-
 if(ikCORE_STATIC)
-    add_library(ikCore ${RC_SRCS} ${CXX_SRCS} ${C_SRCS})
+    add_library(ikCore ${CXX_SRCS} ${C_SRCS})
 else()
-    add_library(ikCore SHARED ${RC_SRCS} ${CXX_SRCS} ${C_SRCS})
+    add_library(ikCore SHARED ${CXX_SRCS} ${C_SRCS})
     target_link_libraries(ikCore ${LINK_OPTIONS})
 endif()
