@@ -62,4 +62,14 @@ typedef bool ikBit;
 typedef ikInt8 ikByte;
 typedef ikUInt8 ikUByte;
 
+template<int Size> struct ikIntegerForSize {};
+template<> struct ikIntegerForSize<1> { typedef ikInt8 Signed; typedef ikUInt8 Unsigned; };
+template<> struct ikIntegerForSize<2> { typedef ikInt16 Signed; typedef ikUInt16 Unsigned; };
+template<> struct ikIntegerForSize<4> { typedef ikInt32 Signed; typedef ikUInt32 Unsigned; };
+template<> struct ikIntegerForSize<8> { typedef ikInt64 Signed; typedef ikUInt64 Unsigned; };
+template<typename T> struct ikIntegerForSizeof : public ikIntegerForSize<sizeof(T)> {};
+
+typedef ikIntegerForSizeof<void*>::Signed ikIntPtr;
+typedef ikIntegerForSizeof<void*>::Unsigned ikUIntPtr;
+
 #endif // !__ikCore_ikGlobal_Header__
