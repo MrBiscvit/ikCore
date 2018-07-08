@@ -36,6 +36,10 @@
 #include <cstdarg>
 #include <cstdalign>
 
+//
+// Some typedefs
+//
+
 #if defined(ikCOMP_MSVC)
 typedef signed __int8 ikInt8;
 typedef signed __int16 ikInt16;
@@ -71,5 +75,34 @@ template<typename T> struct ikIntegerForSizeof : public ikIntegerForSize<sizeof(
 
 typedef ikIntegerForSizeof<void*>::Signed ikIntPtr;
 typedef ikIntegerForSizeof<void*>::Unsigned ikUIntPtr;
+
+//
+// Debug configuration detection
+//
+
+#if !defined(ikDEBUG) && !defined(ikNDEBUG)
+#  if defined(_DEBUG) || !defined(NDEBUG)
+#    define ikDEBUG
+#    undef ikNDEBUG
+#  else
+#    define ikNDEBUG
+#    undef ikDEBUG
+#  endif
+#endif
+
+//
+// Assert
+//
+
+void ikcore_assert_function(const char* test, const char* file, int line);
+void ikcore_assert_function(const char* where, const char* what, const char* file, int line);
+
+#if defined(ikDEBUG) || defined(ikFORCE_ASSERTS)
+#  define ikASSERT(test) ((test) ? static_cast<void>(false) : ikcore_assert_function(#test,__FILE__,__LINE__))
+#  define ikASSERT_X(test,where,what) ((test) ? static_cast<void>(false) : ikcore_assert_function(where,what,__FILE__,__LINE__))
+#else
+#  define ikASSERT(test) static_cast<void>(false && (test))
+#  define ikASSERT_X(test,where,what) static_cast<void>(false && (test))
+#endif
 
 #endif // !__ikCore_ikGlobal_Header__
