@@ -47,7 +47,7 @@ set(CMAKE_LDFLAGS "${CMAKE_LDFLAGS} -L. ")
 
 # Define the CXX sources
 set ( CXX_SRCS
-# ${CMAKE_CURRENT_LIST_DIR}/source/ikCore/main.cxx
+    ${CMAKE_CURRENT_LIST_DIR}/source/ikCore/ikGlobal.cpp
 )
 
 
