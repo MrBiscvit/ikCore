@@ -106,4 +106,21 @@ void ikcore_assert_function(const char* where, const char* what, const char* fil
 #  define ikASSERT_X(test,where,what) static_cast<void>(false && (test))
 #endif
 
+//
+// Function that does nothing...
+//
+
+inline void ikcore_noop() {}
+
+//
+// Some useful macros
+//
+
+#define ikSTRINGIFY_(text) #text
+#define ikSTRINGIFY(text) ikSTRINGIFY_(text)
+
+#define ikEXPAND(x) x
+
+#define ikUNUSED(var) static_cast<void>(var)
+
 #endif // !__ikCore_ikGlobal_Header__
